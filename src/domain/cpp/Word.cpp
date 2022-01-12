@@ -43,19 +43,22 @@ bool Word::isEmpty() {
     return m_lastUsing == EMPTY_LAST_USING;
 }
 
+void Word::setLastUsing(time_t lastUsing) {
+    m_lastUsing = lastUsing;
+}
+
+void Word::setWasErrors(bool wasErrors) {
+    m_wasErrors = wasErrors;
+}
+
 std::string Word::toString() {
     std::string result;
-    std::vector<std::string> stringVector;
-    stringVector.push_back("Word={");
-    stringVector.push_back("m_foreign=\"" + m_foreign + "\"");
-    stringVector.push_back(", m_transcription=\"" + m_transcription + "\"");
-    stringVector.push_back(", m_translate=\"" + m_translate + "\"");
-    stringVector.push_back(", m_lastUsing=" + std::to_string(m_lastUsing));
-    stringVector.push_back(", m_wasErrors=" + std::to_string(m_wasErrors));
-    stringVector.push_back("}");
-    for (int i = 0; i < stringVector.size(); i++) {
-        result += stringVector[i];
-    }
+    result += "Word={";
+    result += ("m_foreign=\"" + m_foreign + "\"");
+    result += (", m_transcription=\"" + m_transcription + "\"");
+    result += (", m_translate=\"" + m_translate + "\"");
+    result += (", m_lastUsing=" + std::to_string(m_lastUsing));
+    result += (", m_wasErrors=" + std::to_string(m_wasErrors));
+    result += ("}");
     return result;
-
 }

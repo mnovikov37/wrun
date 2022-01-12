@@ -52,22 +52,22 @@ WordRepo::WordRepo(std::string dictionaryPath)
 }
 
 WordRepo::~WordRepo() {
-    std::string outputFileName = "~" + m_dictionaryPath;
-    std::ofstream out(outputFileName);
-    if (out.is_open()) {
-        int size = m_words.size();
-        for (int i = 0; i < size; i++) {
-            writeWord(m_words[i], out);
-        }
-        out.close();
-        if (rename(outputFileName.c_str(), m_dictionaryPath.c_str())) {
-            std::cerr << "Unable to saving results of current session - unable to rename temp file \""
-            << outputFileName << "\" to dictionary file \"" << m_dictionaryPath << "\"\n";
-        }
-    } else {
-        std::cerr << "Unable to saving results of current session - unable to create temp file \""
-        << outputFileName << "\"\n";
-    }
+    // std::string outputFileName = "~" + m_dictionaryPath;
+    // std::ofstream out(outputFileName);
+    // if (out.is_open()) {
+    //     int size = m_words.size();
+    //     for (int i = 0; i < size; i++) {
+    //         writeWord(m_words[i], out);
+    //     }
+    //     out.close();
+    //     if (rename(outputFileName.c_str(), m_dictionaryPath.c_str())) {
+    //         std::cerr << "Unable to saving results of current session - unable to rename temp file \""
+    //         << outputFileName << "\" to dictionary file \"" << m_dictionaryPath << "\"\n";
+    //     }
+    // } else {
+    //     std::cerr << "Unable to saving results of current session - unable to create temp file \""
+    //     << outputFileName << "\"\n";
+    // }
 }
 
 int WordRepo::size() {
@@ -90,8 +90,17 @@ time_t WordRepo::getLastUsing(int i) {
     return m_words[i].getLastUsing();
 }
 
-bool WordRepo::getWasErrors(int i) {
+bool WordRepo::wasErrors(int i) {
     return m_words[i].getWasErrors();
+}
+
+void WordRepo::resetWord(int i) {
+    m_words[i].setWasErrors(false);
+    m_words[i].setLastUsing(time(NULL));
+}
+
+void WordRepo::markError(int i) {
+    m_words[i].setWasErrors(true);
 }
 
 #undef SEPARATOR

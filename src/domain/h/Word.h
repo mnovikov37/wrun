@@ -13,6 +13,8 @@ public:
     time_t getLastUsing();
     bool getWasErrors();
     bool isEmpty();
+    void setLastUsing(time_t getLastUsing);
+    void setWasErrors(bool wasErrors);
     std::string toString();
 
 private:
