@@ -7,7 +7,7 @@
 #include "Speaker.h"
 #include "domain/h/Word.h"
 #include "service/h/WordRepo.h"
-#include "service/h/Game.h"
+#include "service/h/WordRoulette.h"
 
 #define ENDL '\n'
 #define LIM 1000
@@ -17,36 +17,42 @@ using namespace std;
 int main() {
     WordRepo wr("dictionary.txt");
     cout << wr.size() << ENDL;
-    Game game(wr, 20, true);
-    cout << wr.getForeign(33) << ENDL;
-    cout << wr.getTranscription(33) << ENDL;
-    cout << wr.getTranslate(33) << ENDL;
-    cout << wr.getLastUsing(33) << ENDL;
-    cout << wr.wasErrors(33) << ENDL;
-    srand(time(NULL));
-    int a[100];
-    for (int i = 0; i < 100; i++) {
-        a[i] = 0;
-        cout << ' ';
-    }
-    cout << '|' << ENDL;
-    int step = LIM / 100;
-    for (int i = 0; i < LIM; i++) {
-        int n = rand() % 100;
-        a[n]++;
-        if(i % step == 0) {
-            cout << '#' << flush;
-        }
-    }
-    cout << ENDL;
-    for (int i = 0; i < 100; i++) {
-        int p = (a[i]* 1000)/LIM;
-        cout << i << ':';
-        for (int j = 0; j < p; j++) {
-            cout << '*';
-        }
-        cout << ENDL;
-    }
+    WordRoulette wordRoulette(wr, 20);
+
+    do {
+        cout << wordRoulette.getForeign() << " | " << wordRoulette.getTranscription() << " | " << wordRoulette.getTranslate() << '\n';
+    } while (wordRoulette.pass(true));
+    // cout << wr.getForeign(33) << ENDL;
+    // cout << wr.getTranscription(33) << ENDL;
+    // cout << wr.getTranslate(33) << ENDL;
+    // cout << wr.getLastUsing(33) << ENDL;
+    // cout << wr.wasErrors(33) << ENDL;
+
+    // srand(time(NULL));
+    // int a[100];
+    // for (int i = 0; i < 100; i++) {
+    //     a[i] = 0;
+    //     cout << ' ';
+    // }
+    // cout << '|' << ENDL;
+    // int step = LIM / 100;
+    // for (int i = 0; i < LIM; i++) {
+    //     int n = rand() % 100;
+    //     a[n]++;
+    //     if(i % step == 0) {
+    //         cout << '#' << flush;
+    //     }
+    // }
+    // cout << ENDL;
+    // for (int i = 0; i < 100; i++) {
+    //     int p = (a[i]* 1000)/LIM;
+    //     cout << i << ':';
+    //     for (int j = 0; j < p; j++) {
+    //         cout << '*';
+    //     }
+    //     cout << ENDL;
+    // }
+
     // time_t sec = time(NULL);
     // cout << sec << '\n';
     // Speaker speaker;
