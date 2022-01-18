@@ -11,18 +11,21 @@ void WordRoulette::markError(int i) {
     m_repo.markError(i);
 }
 
-void deleteElement(std::vector<int> &set, int index) {
-    size_t newSize = set.size() -1;
-    for (int i = index; i < newSize; i++) {
-        // std::cout << set[i] << " <- " << set[i+1] << '\n';
-        set[i] = set[i + 1];
+void shuffle(std::vector<int> &set) {
+    size_t size = set.size();
+    for (int i = 0; i < size; i++) {
+        int j = rand() % size;
+        int tmp = set[i];
+        set[i] = set[j];
+        set[j] = tmp;
     }
-    set.pop_back();
 }
 
 WordRoulette::WordRoulette(WordRepo repo, int wordCount)
 : m_repo(repo), m_wordCount(wordCount) {
     time_t startTime = time(NULL);
+    m_currentWordIndex = 0;
+    m_readyWordsAddIndex = 0;
     srand(startTime);
     std::cout << "startTime = " << startTime << '\n';
     int repoSize = m_repo.size();
@@ -47,14 +50,19 @@ WordRoulette::WordRoulette(WordRepo repo, int wordCount)
         }
         grabWord(index);
     }
-    m_currentWordIndex = rand() % m_wordCount;
 
     for (int i = 0; i < m_wordCount; i++) {
         m_readyWords.push_back(m_words[i]);
     }
-    
+    shuffle(m_readyWords);
+
+    std::cout << '{';
+    for (int i = 0; i < m_wordCount; i++) {
+        std::cout << m_readyWords[i] << '-';
+    }
+    std::cout << '}' << '\n';
     std::cout << "m_wordIndexes size = " << m_words.size() << '\n';
-    std::cout << "m_currentWordIndex = " << m_currentWordIndex << '\n';
+    std::cout << "m_currentWord = " << m_readyWords[m_currentWordIndex] << '\n';
 }
 
 std::string WordRoulette::getForeign() {
@@ -70,24 +78,32 @@ std::string WordRoulette::getTranslate() {
 }
 
 bool WordRoulette::pass(bool successful) {
-    bool result;
-    if (successful) {
-        m_passedWords.push_back(m_readyWords[m_currentWordIndex]);
-    } else {
-        m_notPassedWords.push_back(m_readyWords[m_currentWordIndex]);
+    bool result = true;
+    if (!successful) {
+        m_readyWords[m_readyWordsAddIndex] = m_readyWords[m_currentWordIndex];
         m_repo.markError(m_readyWords[m_currentWordIndex]);
+        m_readyWordsAddIndex++;
     }
-    deleteElement(m_readyWords, m_currentWordIndex);
-    size_t readyWordsCount = m_readyWords.size();
-    // std::cout << "m_readyWords,size() = " << readyWordsCount << '\n';
+    m_currentWordIndex++;
+    if (m_currentWordIndex == m_readyWords.size()) {
+        m_currentWordIndex = 0;
+        if (m_readyWordsAddIndex == 0) {
+            result = false;
+            for (int i = 0; i < m_wordCount; i++) {
+                m_readyWords.push_back(m_words[i]);
+            }
+        } else {
+            m_readyWords.resize(m_readyWordsAddIndex);
+        }
+        shuffle(m_readyWords);
+        m_readyWordsAddIndex = 0;
 
-    if (readyWordsCount) {
-        m_currentWordIndex = rand() % readyWordsCount;
-        // std::cout << "m_currentWordIndex = " << m_currentWordIndex << '\n';
-        result = true;
-    } else {
-        result = false;
+        std::cout << '\n' << '{';
+        for (int i = 0; i < m_readyWords.size(); i++) {
+            std::cout << m_readyWords[i] << '-';
+        }
+        std::cout << '}' << '\n' << '\n';
+
     }
-
     return result;
 }

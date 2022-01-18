@@ -17,6 +17,7 @@ private:
     int m_wordCount;
     bool m_foreignFirst;
     int m_currentWordIndex;
+    int m_readyWordsAddIndex;
     void grabWord(int i);
     void markError(int i);
 };

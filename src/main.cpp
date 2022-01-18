@@ -21,7 +21,7 @@ int main() {
 
     do {
         cout << wordRoulette.getForeign() << " | " << wordRoulette.getTranscription() << " | " << wordRoulette.getTranslate() << '\n';
-    } while (wordRoulette.pass(true));
+    } while (wordRoulette.pass(rand() % 2));
     // cout << wr.getForeign(33) << ENDL;
     // cout << wr.getTranscription(33) << ENDL;
     // cout << wr.getTranslate(33) << ENDL;
