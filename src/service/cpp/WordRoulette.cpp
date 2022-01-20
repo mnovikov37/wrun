@@ -3,7 +3,7 @@
 
 void WordRoulette::grabWord(int i) {
     m_words.push_back(i);
-    std::cout << i << ':' << m_repo.wasErrors(i) << '-' << m_repo.getLastUsing(i) << '\n';
+    // std::cout << i << ':' << m_repo.wasErrors(i) << '-' << m_repo.getLastUsing(i) << '\n';
     m_repo.resetWord(i);
 }
 
@@ -27,7 +27,7 @@ WordRoulette::WordRoulette(WordRepo repo, int wordCount)
     m_currentWordIndex = 0;
     m_readyWordsAddIndex = 0;
     srand(startTime);
-    std::cout << "startTime = " << startTime << '\n';
+    // std::cout << "startTime = " << startTime << '\n';
     int repoSize = m_repo.size();
     int j = 0;
     if (m_wordCount > repoSize) {
@@ -56,13 +56,13 @@ WordRoulette::WordRoulette(WordRepo repo, int wordCount)
     }
     shuffle(m_readyWords);
 
-    std::cout << '{';
-    for (int i = 0; i < m_wordCount; i++) {
-        std::cout << m_readyWords[i] << '-';
-    }
-    std::cout << '}' << '\n';
-    std::cout << "m_wordIndexes size = " << m_words.size() << '\n';
-    std::cout << "m_currentWord = " << m_readyWords[m_currentWordIndex] << '\n';
+    // std::cout << '{';
+    // for (int i = 0; i < m_wordCount; i++) {
+    //     std::cout << m_readyWords[i] << '-';
+    // }
+    // std::cout << '}' << '\n';
+    // std::cout << "m_wordIndexes size = " << m_words.size() << '\n';
+    // std::cout << "m_currentWord = " << m_readyWords[m_currentWordIndex] << '\n';
 }
 
 std::string WordRoulette::getForeign() {
@@ -98,11 +98,11 @@ bool WordRoulette::pass(bool successful) {
         shuffle(m_readyWords);
         m_readyWordsAddIndex = 0;
 
-        std::cout << '\n' << '{';
-        for (int i = 0; i < m_readyWords.size(); i++) {
-            std::cout << m_readyWords[i] << '-';
-        }
-        std::cout << '}' << '\n' << '\n';
+        // std::cout << '\n' << '{';
+        // for (int i = 0; i < m_readyWords.size(); i++) {
+        //     std::cout << m_readyWords[i] << '-';
+        // }
+        // std::cout << '}' << '\n' << '\n';
 
     }
     return result;

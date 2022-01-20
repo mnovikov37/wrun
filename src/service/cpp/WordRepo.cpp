@@ -46,9 +46,9 @@ WordRepo::WordRepo(std::string dictionaryPath)
     } else {
         std::cerr << "Unable to open dictionary file \"" << m_dictionaryPath << "\"\n";
     }
-    for (int i = 0; i < m_words.size(); i++) {
-        std::cout << i << ':' << m_words[i].toString() << '\n';
-    }
+    // for (int i = 0; i < m_words.size(); i++) {
+    //     std::cout << i << ':' << m_words[i].toString() << '\n';
+    // }
 }
 
 WordRepo::~WordRepo() {

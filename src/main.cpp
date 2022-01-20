@@ -8,6 +8,7 @@
 #include "domain/h/Word.h"
 #include "service/h/WordRepo.h"
 #include "service/h/WordRoulette.h"
+#include "service/h/Game.h"
 
 #define ENDL '\n'
 #define LIM 1000
@@ -16,12 +17,22 @@ using namespace std;
 
 int main() {
     WordRepo wr("dictionary.txt");
-    cout << wr.size() << ENDL;
+    // cout << wr.size() << ENDL;
     WordRoulette wordRoulette(wr, 20);
+    Game game(wordRoulette, true);
 
-    do {
-        cout << wordRoulette.getForeign() << " | " << wordRoulette.getTranscription() << " | " << wordRoulette.getTranslate() << '\n';
-    } while (wordRoulette.pass(rand() % 2));
+    // bool s;
+    // do {
+    //     s = rand() % 2;
+    //     cout << wordRoulette.m_readyWords[wordRoulette.m_currentWordIndex] << ':';
+    //     cout << wordRoulette.getForeign() << " | " << wordRoulette.getTranscription() << " | " << wordRoulette.getTranslate();
+    //     if (s) {
+    //         cout << " + ";
+    //     } else {
+    //         cout << " - ";
+    //     }
+    //     cout << '\n';
+    // } while (wordRoulette.pass(s));
     // cout << wr.getForeign(33) << ENDL;
     // cout << wr.getTranscription(33) << ENDL;
     // cout << wr.getTranslate(33) << ENDL;

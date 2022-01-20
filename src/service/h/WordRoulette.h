@@ -1,6 +1,9 @@
 #include "WordRepo.h"
 #include <vector>
 
+#ifndef CLASS_WORD_ROULETTE
+#define CLASS_WORD_ROULETTE
+
 class WordRoulette {
 public:
     WordRoulette(WordRepo repo, int wordCount);
@@ -15,9 +18,10 @@ private:
     std::vector<int> m_passedWords;
     std::vector<int> m_notPassedWords;
     int m_wordCount;
-    bool m_foreignFirst;
     int m_currentWordIndex;
     int m_readyWordsAddIndex;
     void grabWord(int i);
     void markError(int i);
 };
+
+#endif  // CLASS_WORD_ROULETTE
