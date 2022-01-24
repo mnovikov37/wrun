@@ -9,6 +9,7 @@
 #include "service/h/WordRepo.h"
 #include "service/h/WordRoulette.h"
 #include "service/h/Game.h"
+#include "interface/h/Frame.h"
 
 #define ENDL '\n'
 #define LIM 1000
@@ -19,7 +20,8 @@ int main() {
     WordRepo wr("dictionary.txt");
     // cout << wr.size() << ENDL;
     WordRoulette wordRoulette(wr, 20);
-    Game game(wordRoulette, true);
+    // Game game(wordRoulette, true);
+    Frame frame(0, 0, 6, 3);
 
     // bool s;
     // do {
