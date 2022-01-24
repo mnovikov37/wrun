@@ -1,0 +1,9 @@
+#ifndef MNOVIKOV37_INTERFACE_FRAME
+#define MNOVIKOV37_INTERFACE_FRAME
+
+class Frame {
+public:
+private:
+};
+
+#endif  // MNOVIKOV37_INTERFACE_FRAME
