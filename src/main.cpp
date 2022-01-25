@@ -20,8 +20,8 @@ int main() {
     WordRepo wr("dictionary.txt");
     // cout << wr.size() << ENDL;
     WordRoulette wordRoulette(wr, 20);
-    // Game game(wordRoulette, true);
-    Frame frame(0, 0, 6, 3);
+    Game game(wordRoulette, true);
+    // Frame frame(0, 0, 6, 3);
 
     // bool s;
     // do {

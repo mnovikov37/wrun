@@ -1,4 +1,15 @@
+#include <termios.h>
+#include <unistd.h>
+#include <signal.h>
 #include "../h/Game.h"
+
+void sigint(int a) {
+    std::cout<<"CTRL+C\n";
+}
+
+void sigtstp(int a) {
+    std::cout<<"CTRL+Z\n";
+}
 
 bool Game::pass(bool foreignFirst) {
     char answer = 0;
@@ -13,8 +24,9 @@ bool Game::pass(bool foreignFirst) {
         letters[2] = m_roulette.getForeign();
     }
     letters[1] = m_roulette.getTranscription();
+    
     for (int i = 0; i < 3; i++) {
-        std::cout << letters[i];
+        std::cout << letters[i] << '\n';
         answer = std::getchar();
     }
     std::cout << "------------------------\n";
@@ -24,6 +36,18 @@ bool Game::pass(bool foreignFirst) {
 
 Game::Game(WordRoulette roulette, bool foreignFirst)
 :m_roulette(roulette), m_foreignFirst(foreignFirst) {
+    signal(SIGINT, sigint);
+    signal(SIGTSTP, sigtstp);
+ 
+     struct termios oldt, newt;
+     int ch;
+     tcgetattr( STDIN_FILENO, &oldt );
+     newt = oldt;
+     newt.c_lflag &= ~( ICANON | ECHO );
+     tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+
     while (m_roulette.pass(pass(m_foreignFirst)));
     while (m_roulette.pass(pass(!m_foreignFirst)));
+
+    tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
 }
